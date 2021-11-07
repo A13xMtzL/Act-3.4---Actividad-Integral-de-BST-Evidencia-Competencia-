@@ -1,6 +1,6 @@
 //Codigo trabajado por: Alejandro Martinez Luna        - A01276785
 //                      Monserrat Karime Moreno Casas  - A01276775
-//Si ponemos un brand new commenatry que pasa 
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -98,6 +98,10 @@ int main() {
 
   	for (int j = 0; j < Solo_direcciones.size(); j++) {
 			Direcciones_ips.push_back(Solo_direcciones[j]);
+		}
+
+    for (int j = 0; j < Solo_direcciones.size(); j++) {
+			cout<<Direcciones_ips[j]<<endl;
 		}
 
 /*int contador =0 ;
