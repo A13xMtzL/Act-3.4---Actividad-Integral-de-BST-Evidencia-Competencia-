@@ -1,5 +1,11 @@
+#define MAXIMA_LONGITUD_CADENA 100
+
 #pragma once
 #include<iostream>
+#include <string>
+
+using namespace std;
+
 
 class ArbolABB {
 private:
@@ -13,6 +19,10 @@ private:
         int dato;
         Nodo* izquierdo;
         Nodo* derecho;
+
+        // Agregamos que el nodo pueda manjear valores de tipo string 
+
+        
     };
 
     // Se definen los punteros, uno destinado al nodo raiz del arbol y el otro al nodo actual
@@ -26,6 +36,7 @@ private:
 public:
     // Constructor y destructor basico de la clase
     ArbolABB() : raiz(NULL), actual(NULL) {}
+    
     ~ArbolABB() { Podar(raiz); }
     // Funcion para insertar un elemento del arbol 
     void Insertar(const int dat);
@@ -56,3 +67,6 @@ private:
     void auxContador(Nodo*);
     void auxAltura(Nodo*, int);
 };
+
+
+

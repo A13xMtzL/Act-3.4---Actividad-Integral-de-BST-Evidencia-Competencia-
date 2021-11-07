@@ -1,5 +1,8 @@
 #include "ArbolABB.h"
 #include <vector>
+#include <string>
+
+using namespace std;
 
 // Funcion Podar, encargada de eliminar una cantidad de nodos, incluido el nodo padre
 void ArbolABB::Podar(Nodo*& nodo)
@@ -22,6 +25,8 @@ void ArbolABB::Insertar(const int dat)
     // Si el arbol se encuentra vacio o no se encuentra un nodo raiz, se crea una raiz 
     while (!Vacio(actual) && dat != actual->dato) {
         padre = actual;
+
+        
         if (dat > actual->dato) actual = actual->derecho;
         else if (dat < actual->dato) actual = actual->izquierdo;
     }
@@ -34,6 +39,8 @@ void ArbolABB::Insertar(const int dat)
     else if (dat < padre->dato) padre->izquierdo = new Nodo(dat);
     // verifica que dato sea menor que el padre y lo coloca en la rama derecha 
     else if (dat > padre->dato) padre->derecho = new Nodo(dat);
+
+
 }
 
 // Funcion para eliminar un elemento de un Arbol

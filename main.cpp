@@ -1,5 +1,5 @@
-//Codigo trabajado por: Alejandro Martinez Luna        - A01276785
-//                      Monserrat Karime Moreno Casas  - A01276775
+//Codigo trabajado por: Alejandro Martinez Luna        -  A01276785
+//                      Monserrat Karime Moreno Casas  -  A01276775
 
 #include <iostream>
 #include <fstream>
@@ -10,7 +10,9 @@
 #include"COrdenamineto_QuickSort.h"
 #include "CDirecciones_IP.h"
 
-#include "ArbolABB.h"
+//Se incluyen las librerias de los arboles 
+#include "CArbol_BST.h"
+
 
 using namespace std;
 
@@ -22,7 +24,7 @@ void Mostrar(int& d){
 int main() {
 
   //  Creacion de objeto de tipo arbol binario de busqueda
-  ArbolABB  miArbolitoBonito;
+  CArbol_BST miArbolitoBonito;
 
 	//  Se crea un objeto de la clase COrdenamineto_QuickSort que nos va a permitir acceder a la función de ordenamiento 
 	COrdenamineto_QuickSort elemento_ordenador;
@@ -30,7 +32,7 @@ int main() {
 	CTokenize token;
 
 	//  Usando la clase ifstream podremos abrir y manipular los archivos de manera sencilla
-	cout << "Abriendo archivo de fallas en el servidor" << endl;
+	cout << "Abriendo archivo de fallas en el servidor..." << endl;
 	ifstream file("bitacora.txt");	//Con esta función abrimos el archivo
 	string cadena;
 
@@ -38,8 +40,13 @@ int main() {
 	vector<string> elementos;
 	vector<string> vector_cadena;
 	vector<string> ips;
-  vector<string> Direcciones_ips;
-  vector<string> Solo_direcciones;
+
+  //Vector en el que se almacenaran todas las direcciones ordenadas como strings 
+  vector<string> Direcciones_ips;  
+
+  /*Vector que ayuadra para que se pueda hacer el ordenamiento de las direcciones
+    ip y en donde se hara la comprobacion si hay repetidos*/ 
+  vector<string> Solo_direcciones; 
 
 	//  Definimos los vectores de tipo entero donde almacenaremos cada octeto de las direcciones IPs
 	vector<int>ip_primer_octeto;
@@ -77,8 +84,6 @@ int main() {
 		ip_primer_octeto.push_back(fallas.return_IP_numerica(ips[0]));
 		ip_segundo_octeto.push_back(fallas.return_IP_numerica(ips[1]));
 		ip_tercer_octeto.push_back(fallas.return_IP_numerica(ips[2]));
-
-
     
     /*  Se multiplican los octetos por numeros grandes para poder realizar una comparacion entre ellos, se realizo esto, ya que 
         podria ser mas facil que emplear una funcion de comparacion entre direcciones ip */
@@ -93,28 +98,84 @@ int main() {
 	/*  Una vez que tengamos todas las direcciones ip, usaremos nuestro objeto 'elemento_ordenador'
       para poder llamar al metodo de ordenamiento de la clase QuickSort*/
 
-	elemento_ordenador.Ordenamiento_QuickSort(lista_ip_totales, Solo_direcciones, 0, i);
+	elemento_ordenador.Ordenamiento_QuickSort(lista_ip_totales, Solo_direcciones, 0, i); // Se realiza el ordenamiento de las direcciones
+
+  //Se agregan las direcciones ya ordenadas en el vector 'Direcciones_ips'
+  for (int j = 1; j < Solo_direcciones.size()+1; j++) {
+    Direcciones_ips.push_back(Solo_direcciones[j]);
+  }
+
+  //  Funcion donde se realiza la comprobacion de direcciones repetidas 
+  int contador =0;
 
 
-  	for (int j = 0; j < Solo_direcciones.size(); j++) {
-			Direcciones_ips.push_back(Solo_direcciones[j]);
-		}
-
-    for (int j = 0; j < Solo_direcciones.size(); j++) {
-			cout<<Direcciones_ips[j]<<endl;
-		}
-
-/*int contador =0 ;
-  for (int j = 0; j < lista_ip_totales.size(); j++) {
-    if (lista_ip_totales[j] == lista_ip_totales[j-1]){
-      miArbolitoBonito.Insertar(lista_ip_totales[j]);
-      contador ++;
+  for (int k = 1; k < Direcciones_ips.size(); k++) {
+    //Compara la direccion actual con la anterior
+    if (Direcciones_ips[k] == Direcciones_ips[k-1]){
+      contador ++; //si son iguales se suma al contador
     }
-    
+    //Insertar la cantidad de repeticiones y la IP al árbol 
+    else { 
+      miArbolitoBonito.Insertar(contador, Direcciones_ips[k]); 
+      contador = 0;
+      }
 	}
 
-  miArbolitoBonito.InOrden(Mostrar);
-  cout<<"\n\nEl numero de nodos de esta chingadera es: "<<miArbolitoBonito.NumeroNodos()<<endl;*/
+
+
+  
+ cout<< "\nLista de IPs repetidas: \n\n";
+  miArbolitoBonito.In_Orden_Inverso();
+
+
+  cout<< "\nTop 5 IPs con mas repeticiones: \n\n";
+  //miArbolitoBonito.Primeros_Cinco();
+  cout<<endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //------------------------------------------ARCHIVO AVIERTADO------------------------------------------
+
+  /*  Se crea un nuevo archivo donde se desplegaran unicamente las direcciones ip ordenadas en orden ascendente, eso para poder ver 
+      las direcciones de una forma mas visual y revisar las direcciones que se han repetido*/
+
+  /*ofstream archivo; 
+
+	archivo.open("Direcciones_Ip_Ordenadas.txt", ios::out);		// Se crea el nuevo archivo en donde se van a desplegar las direcciones Ip ordenadas
+	if (archivo.fail()) {
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+  for (int j = 0; j < Direcciones_ips.size(); j++) {
+			archivo << Direcciones_ips[j] << endl;
+	}
+
+  archivo.close(); //Se cierra el achivo */
+
   
 }
 	
