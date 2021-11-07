@@ -1,0 +1,32 @@
+{
+  "files": {
+    "bitacora.txt": [
+      {
+        "id": "c1c7b1e0-5875-4f45-85af-db232aedff33",
+        "line": 16807,
+        "version": 2,
+        "index": 1054011
+      }
+    ],
+    "main.cpp": [
+      {
+        "id": "7d74dace-7c9f-4b89-8468-1db56dd7e75d",
+        "line": 41,
+        "version": 1304,
+        "index": 1246
+      },
+      {
+        "id": "cf0f3b3c-85f7-4c6e-91ad-2bef24d75003",
+        "line": 69,
+        "version": 1304,
+        "index": 2322
+      },
+      {
+        "id": "b24b3251-6c60-4548-90a0-aeffa09472db",
+        "line": 70,
+        "version": 1304,
+        "index": 2379
+      }
+    ]
+  }
+}
