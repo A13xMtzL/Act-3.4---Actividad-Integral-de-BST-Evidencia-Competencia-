@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 
+
 using namespace std;
 
 //Definición de Estructura del BST para IPs
@@ -18,7 +19,7 @@ struct Nodo_ABB {
 class CArbol_BST {
 private:
   // Atributo con funcionalidad hacia el Top de IPs más buscadas
-  int top;
+  int top = 0;
 
   // Número de elementos en el BST
   int size;

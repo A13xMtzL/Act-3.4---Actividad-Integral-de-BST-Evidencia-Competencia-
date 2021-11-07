@@ -4,13 +4,13 @@ using namespace std;
 
 CArbol_BST::CArbol_BST() { //Complejidad:  O(1)
     this->size = 0;
-    this->raiz = NULL;
+    this->raiz = nullptr;
 }
 
 //Función que busca nodos en el BST, recibe como parámetros un entero y un nodo apuntado, retorna un valor boolenao
 
 bool CArbol_BST::buscar(int dato, Nodo_ABB *actual) { //Complejidad:  O(n)
-  if (actual == NULL) {
+  if (actual == nullptr) {
     return false;
   } else if (actual->dato == dato) {
     return true;
@@ -25,14 +25,14 @@ bool CArbol_BST::buscar(int dato, Nodo_ABB *actual) { //Complejidad:  O(n)
 //Función que inserta nodos en el BST, recibe como parámetros un entero y un string constante referenciado, retorna un valor boolenao
 
 bool CArbol_BST::Insertar(int key, const string &ip) { // Complejidad: O(n)
-    if (this->raiz == NULL) {
+    if (this->raiz == nullptr) {
         this->raiz = new Nodo_ABB(key, ip);
         size++;
         return true;
     } else {
-        Nodo_ABB *actual = this->raiz, *previo= NULL;
+        Nodo_ABB *actual = this->raiz, *previo= nullptr;
 
-        while (actual != NULL) {
+        while (actual != nullptr) {
             previo = actual;
             if (key == actual->dato) {
                 return false;
@@ -56,7 +56,7 @@ bool CArbol_BST::Insertar(int key, const string &ip) { // Complejidad: O(n)
 
 Nodo_ABB *CArbol_BST::min_Valor_Nodo(Nodo_ABB *nodo) { //Complejidad:  O(n)
     Nodo_ABB *actual = nodo;
-    while (actual && actual->left != NULL)
+    while (actual && actual->left != nullptr)
         actual = actual->left;
     return actual;
 }
@@ -64,7 +64,7 @@ Nodo_ABB *CArbol_BST::min_Valor_Nodo(Nodo_ABB *nodo) { //Complejidad:  O(n)
 //Función que elimina un nodo en el BST, recibe como parámetros un nodo apuntado, un entero y un valor booleano referenciado y retorna un nodo apuntado
 
 Nodo_ABB *CArbol_BST::podar(Nodo_ABB *nodo, int dato, bool &success) { //Complejidad:  O(n)
-    if (nodo == NULL) {
+    if (nodo == nullptr) {
         success = false;
         return nodo;
     }
@@ -73,12 +73,12 @@ Nodo_ABB *CArbol_BST::podar(Nodo_ABB *nodo, int dato, bool &success) { //Complej
     } else if (dato > nodo->dato) {
         nodo->right = podar(nodo->right, dato, success);
     } else {
-        if (nodo->left == NULL) {
+        if (nodo->left == nullptr) {
             Nodo_ABB *temp = nodo->right;
             delete nodo;
             success = true;
             return temp;
-        } else if (nodo->right == NULL) {
+        } else if (nodo->right == nullptr) {
             Nodo_ABB *temp = nodo->left;
             delete nodo;
             success = true;
@@ -95,7 +95,7 @@ Nodo_ABB *CArbol_BST::podar(Nodo_ABB *nodo, int dato, bool &success) { //Complej
 //Función que imprime el BST en postorder, recibe como parámetro un nodo apuntado y no tiene valor de retorno.
 
 void CArbol_BST::postorden(Nodo_ABB *actual) { //Complejidad:  O(n)
-    if (actual != NULL) {
+    if (actual != nullptr) {
         postorden(actual->left);
         postorden(actual->right);
         cout << actual->dato << ",";
@@ -105,7 +105,7 @@ void CArbol_BST::postorden(Nodo_ABB *actual) { //Complejidad:  O(n)
 //Función que imprime el BST en preorder, recibe como parámetro un nodo apuntado y no tiene valor de retorno.
 
 void CArbol_BST::preorden(Nodo_ABB *actual) { //Complejidad:  O(n)
-    if (actual != NULL) {
+    if (actual != nullptr) {
         cout << actual->dato << ",";
         this->preorden(actual->left);
         this->preorden(actual->right);
@@ -115,17 +115,23 @@ void CArbol_BST::preorden(Nodo_ABB *actual) { //Complejidad:  O(n)
 //Función que imprime el BST en In_Orden_Inverso, , recibe como parámetro un nodo apuntado y no tiene valor de retorno.
 
 void CArbol_BST::In_Orden_Inverso(Nodo_ABB *actual, int &count) { //Complejidad:  O(n)
-    if (count > 0 || count == -1) {
-        if (count != -1) {
-            count--;
-        }
-        if (actual != NULL) {
-            In_Orden_Inverso(actual->right, count);
-            if (actual->dato!=0)
-                cout<<"IP: "<< actual->ip << " --- Repeticiones: "<< actual->dato << endl;
-            In_Orden_Inverso(actual->left, count);
-        }
+
+  if (count > 0 || count == -1) {
+    if (count != -1) {
+        count--;
     }
+    if (actual != nullptr) {
+      In_Orden_Inverso(actual->right, count);
+      
+      int contador_lugares = 0;
+      if (actual->dato!=0 && contador_lugares<5){
+        cout<<"IP: "<< actual->ip << " --- Repeticiones: "<< actual->dato << endl;
+        
+        contador_lugares++;
+      }
+      In_Orden_Inverso(actual->left, count);
+    }
+  }
 }
 
 //Funcion que implementa el In_Orden_Inverso, no recibe parámetros y no tiene valor de retorno.
@@ -138,7 +144,7 @@ void CArbol_BST::In_Orden_Inverso() { //Complejidad:  O(n)
 //Función que retorna la altura del BST, no recibe parámetros y no tiene valor de retorno.
 
 int CArbol_BST::altura(Nodo_ABB *nodo) { //Complejidad:  O(n)
-    if (nodo == NULL) {
+    if (nodo == nullptr) {
         return 0;
     } else {
         int leftHeight = altura(nodo->left);
@@ -156,7 +162,7 @@ int CArbol_BST::altura(Nodo_ABB *nodo) { //Complejidad:  O(n)
 //Función que corrobora ancestros, recibe como parámetro un nodo apuntado, un entero y un string referenciado, retorna un valor booleano.
 
 bool CArbol_BST::ancestros(Nodo_ABB *nodo, int dato, string &output) { //Complejidad:  O(n)
-    if (nodo == NULL) {
+    if (nodo == nullptr) {
         return false;
     }
     if (nodo->dato == dato) {
@@ -173,7 +179,7 @@ bool CArbol_BST::ancestros(Nodo_ABB *nodo, int dato, string &output) { //Complej
 //Función que retorna el nivel de un nodo dado, recibe como parámetro un nodo apuntado y dos enteros, retorna un valor entero.
 
 int CArbol_BST::Nivel_Actual(Nodo_ABB *nodo, int dato, int level) { //Complejidad:  O(n)
-    if (nodo == NULL) {
+    if (nodo == nullptr) {
         return -1;
     }
     if (nodo->dato == dato) {
@@ -192,7 +198,6 @@ int CArbol_BST::Nivel_Actual(Nodo_ABB *nodo, int dato, int level) { //Complejida
 void CArbol_BST::Primeros_Cinco() { //Complejidad:  O(n)
     int count = -1;
     InOrden_Inverso_Primeros_Cinco(this->raiz, count);
-    top=0;
 }
 
 //Función que despliega el reverseInorder del Top 5 IPs mas repetidas, recibe como parámetro un nodo apuntado y un entero referenciado, no tiene valor de retorno.
@@ -204,7 +209,7 @@ void CArbol_BST::InOrden_Inverso_Primeros_Cinco(Nodo_ABB *actual, int &count) { 
         }
         if (actual != NULL) {
             InOrden_Inverso_Primeros_Cinco(actual->right, count);
-            if (top<5 && actual->dato!=0){
+            if (top<5 && actual->dato !=0 ){
                 cout<<"IP: "<< actual->ip << " --- Repeticiones: "<< actual->dato << endl;
                 top++;
             }

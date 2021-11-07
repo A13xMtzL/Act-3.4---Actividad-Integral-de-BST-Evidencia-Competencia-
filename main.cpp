@@ -124,12 +124,12 @@ int main() {
 
 
   
- cout<< "\nLista de IPs repetidas: \n\n";
+  cout<< "\nLista de IPs repetidas: \n\n";
   miArbolitoBonito.In_Orden_Inverso();
 
 
   cout<< "\nTop 5 IPs con mas repeticiones: \n\n";
-  //miArbolitoBonito.Primeros_Cinco();
+  miArbolitoBonito.Primeros_Cinco();
   cout<<endl;
 
 
