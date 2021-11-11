@@ -12,7 +12,7 @@ struct Nodo_ABB {
     explicit Nodo_ABB(int dato, string ip) {
         this->dato = dato;
         this->ip = move(ip);
-        this->left = this->right = nullptr;
+        this->left = this->right = NULL;
     }
 };
 
@@ -20,7 +20,7 @@ class CArbol_BST {
 private:
   // Atributo con funcionalidad hacia el Top de IPs más buscadas
   int top = 0;
-
+  
   // Número de elementos en el BST
   int size;
 
@@ -50,9 +50,6 @@ private:
 
   //Función que retorna la altura del BST, no recibe parámetros y no tiene valor de retorno.
   int altura(Nodo_ABB *nodo); //Complejidad: O(n)
-
-  //Función que corrobora ancestros, recibe como parámetro un nodo apuntado, un entero y un string referenciado, retorna un valor booleano.
-  bool ancestros(Nodo_ABB *nodo, int dato, string &output); //Complejidad: O(n)
 
   //Función que retorna el nivel de un nodo dado, recibe como parámetro un nodo apuntado y dos enteros, retorna un valor entero.
   int Nivel_Actual(Nodo_ABB *nodo, int dato, int level); //Complejidad: O(n)

@@ -21,6 +21,28 @@ void Mostrar(int& d){
 	cout << d << ",";
 }
 
+//  Funcion donde se realiza la comprobacion de direcciones repetidas 
+void comprueba_repetidos(  vector<string> vector ,CArbol_BST Arbolito_BST){ //  Complejidad: O(n)
+  int contador = 1;
+  cout<<endl;
+  
+  //Ciclo que despliega todas las direcciones, junto con su numero de repetidos
+  for (int k = 1; k < vector.size()+1; k++) {
+    //Compara la direccion actual con la anterior
+    if (vector[k-1] == vector[k]){
+      contador ++; //si son iguales se suma al contador
+    }
+    //Insertar la cantidad de repeticiones y la IP al árbol 
+    else { 
+      Arbolito_BST.Insertar(contador, vector[k-1]); 
+      //if (contador>=2){
+        cout << "Contador: " << contador << " direcciones: " << vector[k-1] << endl;
+        contador = 1;
+      //}
+      }
+	}
+}
+
 int main() {
 
   //  Creacion de objeto de tipo arbol binario de busqueda
@@ -72,7 +94,9 @@ int main() {
 		vector_cadena.push_back(cadena);
 
 		//  Se utiliza la funcion "tokenize" para poder separar los elementos siempre que haya un espacio
-		token.tokenizar(cadena, ' ', elementos);//Ya que han separado los mandamos a el vector "elementos"
+
+    token.tokenizar(cadena, ' ', elementos);//Ya que han separado los mandamos a el vector "elementos"
+
     Solo_direcciones.push_back(elementos[3]);
   	ips.clear();
 
@@ -105,65 +129,20 @@ int main() {
     Direcciones_ips.push_back(Solo_direcciones[j]);
   }
 
-  //  Funcion donde se realiza la comprobacion de direcciones repetidas 
-  int contador =0;
-
-
-  for (int k = 1; k < Direcciones_ips.size(); k++) {
-    //Compara la direccion actual con la anterior
-    if (Direcciones_ips[k] == Direcciones_ips[k-1]){
-      contador ++; //si son iguales se suma al contador
-    }
-    //Insertar la cantidad de repeticiones y la IP al árbol 
-    else { 
-      miArbolitoBonito.Insertar(contador, Direcciones_ips[k]); 
-      contador = 0;
-      }
-	}
-
-
-
   
-  cout<< "\nLista de IPs repetidas: \n\n";
+  //Se llama a la funcion que comprueba repetidos
+  comprueba_repetidos(Direcciones_ips,miArbolitoBonito);
+
+  //De las direcciones repetidas se genera el top 5 de las direcciones con mayor repeticion 
   miArbolitoBonito.In_Orden_Inverso();
-
-
-  cout<< "\nTop 5 IPs con mas repeticiones: \n\n";
   miArbolitoBonito.Primeros_Cinco();
-  cout<<endl;
 
+  //---------------------------------Abriendo un nuevo archivo--------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //------------------------------------------ARCHIVO AVIERTADO------------------------------------------
-
-  /*  Se crea un nuevo archivo donde se desplegaran unicamente las direcciones ip ordenadas en orden ascendente, eso para poder ver 
+  /* Se crea un nuevo archivo donde se desplegaran unicamente las direcciones ip ordenadas en orden ascendente, eso para poder ver 
       las direcciones de una forma mas visual y revisar las direcciones que se han repetido*/
 
-  /*ofstream archivo; 
+  ofstream archivo; 
 
 	archivo.open("Direcciones_Ip_Ordenadas.txt", ios::out);		// Se crea el nuevo archivo en donde se van a desplegar las direcciones Ip ordenadas
 	if (archivo.fail()) {
@@ -174,9 +153,7 @@ int main() {
 			archivo << Direcciones_ips[j] << endl;
 	}
 
-  archivo.close(); //Se cierra el achivo */
-
-  
+  archivo.close(); //Se cierra el achivo 
 }
 	
 
