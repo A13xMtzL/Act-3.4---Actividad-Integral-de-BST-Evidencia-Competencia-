@@ -6,42 +6,19 @@
 #include <string>
 #include <vector>
 
+//Se incluyen el encabezado de las clases
 #include"CTokenize.h"
 #include"COrdenamineto_QuickSort.h"
 #include "CDirecciones_IP.h"
 
-//Se incluyen las librerias de los arboles 
 #include "CArbol_BST.h"
 
 
 using namespace std;
 
-// Funcion que muestra los valores del arbol separados por comas
-void Mostrar(int& d){
-	cout << d << ",";
-}
 
 //  Funcion donde se realiza la comprobacion de direcciones repetidas 
-void comprueba_repetidos(  vector<string> vector ,CArbol_BST Arbolito_BST){ //  Complejidad: O(n)
-  int contador = 1;
-  cout<<endl;
-  
-  //Ciclo que despliega todas las direcciones, junto con su numero de repetidos
-  for (int k = 1; k < vector.size()+1; k++) {
-    //Compara la direccion actual con la anterior
-    if (vector[k-1] == vector[k]){
-      contador ++; //si son iguales se suma al contador
-    }
-    //Insertar la cantidad de repeticiones y la IP al árbol 
-    else { 
-      Arbolito_BST.Insertar(contador, vector[k-1]); 
-      //if (contador>=2){
-        cout << "Contador: " << contador << " direcciones: " << vector[k-1] << endl;
-        contador = 1;
-      //}
-      }
-	}
-}
+void comprueba_repetidos(vector<string>& vector_comprobar, CArbol_BST &miArbolitoBonito);
 
 int main() {
 
@@ -130,14 +107,16 @@ int main() {
   }
 
   
-  //Se llama a la funcion que comprueba repetidos
+  /*  Se llama a la funcion que comprueba repetidos, pasamos como parametro el vector con nuestras direcciones
+      y nuestro obejto de tipo Arbol_BST*/
+  
   comprueba_repetidos(Direcciones_ips,miArbolitoBonito);
 
-  //De las direcciones repetidas se genera el top 5 de las direcciones con mayor repeticion 
-  miArbolitoBonito.In_Orden_Inverso();
+  //De las direcciones repetidas se genera el top 5 de las direcciones con mayor repeticion, para esto usamos el metodo de la clase Arbol_BST
+
   miArbolitoBonito.Primeros_Cinco();
 
-  //---------------------------------Abriendo un nuevo archivo--------------------------------
+  //--------------------------------------------Abriendo un nuevo archivo--------------------------------------------
 
   /* Se crea un nuevo archivo donde se desplegaran unicamente las direcciones ip ordenadas en orden ascendente, eso para poder ver 
       las direcciones de una forma mas visual y revisar las direcciones que se han repetido*/
@@ -154,6 +133,31 @@ int main() {
 	}
 
   archivo.close(); //Se cierra el achivo 
+
+
+  return 0; //Fin del programa
 }
-	
+
+
+//  Funcion donde se realiza la comprobacion de direcciones repetidas 
+void comprueba_repetidos(vector<string>& vector_comprobar, CArbol_BST &miArbolitoBonito){ //  Complejidad: O(n)
+  int contador = 1;
+  //Ciclo que despliega todas las direcciones, junto con su numero de repetidos
+  cout<<endl;
+  for (int k = 1; k < vector_comprobar.size()+1; k++) {
+    //Compara la direccion actual con la anterior
+    if (vector_comprobar[k-1] == vector_comprobar[k]){
+      contador ++; //si son iguales se suma al contador
+    }
+    //Insertar la cantidad de repeticiones y la IP al árbol 
+    else { 
+
+       miArbolitoBonito.Insertar(contador, vector_comprobar[k-1]); 
+        if (contador>=2){
+        cout << "Contador: " << contador << " direcciones: " << vector_comprobar[k-1] << endl;
+        contador = 1;
+        }
+    }
+	}
+}	
 
